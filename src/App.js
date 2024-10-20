@@ -10,7 +10,6 @@ import menu from "./data/menu.json";
 import "./App.css";
 
 import Header from "./components/Header";
-import Menu from "./components/Menu";
 import ButtonMenu from "./components/ButtonMenu";
 
 const address =
@@ -76,7 +75,6 @@ function App() {
   return (
     <Router>
       <div className="grid">
-        <Menu parentCallback={callback} />
         <Header />
         <main id="section-example">
           <Suspense fallback={<div>Page is Loading...</div>}>
