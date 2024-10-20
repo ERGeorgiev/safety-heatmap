@@ -6,7 +6,6 @@ import {
   Switch,
   HashRouter as Router,
 } from "react-router-dom";
-import GithubCorner from "./components/GithubCorner";
 import menu from "./data/menu.json";
 import "./App.css";
 
@@ -94,7 +93,6 @@ function App() {
         </main>
       </div>
       <ButtonMenu />
-      <GithubCorner />
     </Router>
   );
 }
