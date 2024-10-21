@@ -1,11 +1,11 @@
 import { MapContainer, TileLayer } from 'react-leaflet';
-import tileLayer from '../util/tileLayer';
+import tileLayer from './tileLayer';
 
-const center = [52.22977, 21.01178];
+const center = [52.07221, -1.01463];
 
 const MapWrapper = () => {
   return (
-    <MapContainer center={center} zoom={18} scrollWheelZoom={false}>
+    <MapContainer center={center} zoom={15} scrollWheelZoom={false}>
       <TileLayer {...tileLayer} />
     </MapContainer>
   )
