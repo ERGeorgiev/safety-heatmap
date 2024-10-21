@@ -1,5 +1,5 @@
 import "./App.css";
-import MapWrapper from "./pages/simple-map.js";
+import MapWrapper from "./main-map.js";
 
 function App() {
   return (
