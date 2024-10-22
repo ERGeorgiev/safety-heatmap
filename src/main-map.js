@@ -12,10 +12,7 @@ import tileLayer from './tileLayer';
 
 const center = [52.07221, -1.01463];
 
-const reportUnsafe = (index, map, legend) => {
-}
-
-const reportSafe = (index, map, legend) => {
+const reportUnsafe = () => {
 }
 
 const removeAllMarkers = (map) => {
@@ -26,33 +23,20 @@ const removeAllMarkers = (map) => {
   });
 }
 
-const removeMarker = (index, map, legend) => {
-  map.eachLayer((layer) => {
-    if (layer.options && layer.options.pane === "markerPane") {
-      if (layer.options.uniceid === index) {
-        map.removeLayer(layer);
-      }
-    }
+function createIcon() {
+  return L.divIcon({
+    className: "custom-icon-marker",
+    iconSize: L.point(40, 40),
+    html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="marker"><path fill-opacity="0.25" d="M16 32s1.427-9.585 3.761-12.025c4.595-4.805 8.685-.99 8.685-.99s4.044 3.964-.526 8.743C25.514 30.245 16 32 16 32z"/><path stroke="#000000" fill="#e83e4c" d="M15.938 32S6 17.938 6 11.938C6 .125 15.938 0 15.938 0S26 .125 26 11.875C26 18.062 15.938 32 15.938 32zM16 6a4 4 0 100 8 4 4 0 000-8z"/></svg>`,
+    iconAnchor: [12, 24],
+    popupAnchor: [9, -26],
   });
 }
 
-function createMarker(coordinates, map) {
-  const newMarker = L.marker(coordinates, {
-    icon: L.divIcon({
-      className: "custom-icon-marker",
-      iconSize: L.point(40, 40),
-      html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="marker"><path fill-opacity="0.25" d="M16 32s1.427-9.585 3.761-12.025c4.595-4.805 8.685-.99 8.685-.99s4.044 3.964-.526 8.743C25.514 30.245 16 32 16 32z"/><path stroke="#000000" fill="#D7282F" d="M15.938 32S6 17.938 6 11.938C6 .125 15.938 0 15.938 0S26 .125 26 11.875C26 18.062 15.938 32 15.938 32zM16 6a4 4 0 100 8 4 4 0 000-8z"/></svg>`,
-      iconAnchor: [12, 24],
-      popupAnchor: [9, -26],
-    }),
-  })
-  newMarker.bindPopup(`<b>Report unsafe</b>:<br>`);
-  newMarker.addTo(map);
-}
-
-const ShowMarkers = ({ mapContainer, legend, markers }) => {
+const ShowMarkers = ({ map, legend, markers }) => {
   return markers.map((marker, index) => {
     return <Marker
+      icon={createIcon()}
       key={index}
       uniceid={index}
       position={marker}
@@ -65,8 +49,8 @@ const ShowMarkers = ({ mapContainer, legend, markers }) => {
       }}
     >
       <Popup>
-        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => reportUnsafe(index, mapContainer, legend)} />
-        <Button type='pill lg popup' text='❌ Cancel' onClickAction={() => removeMarker(index, mapContainer, legend)} />
+        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => reportUnsafe(index, map, legend)} />
+        <Button type='pill lg popup' text='❌ Cancel' onClickAction={() => removeAllMarkers(map)} />
       </Popup>
     </Marker>
   })
@@ -79,23 +63,19 @@ const MyMarkers = ({ map }) => {
   useEffect(() => {
     if (!map) return;
     const legend = L.control({ position: "bottomleft" });
-
     const info = L.DomUtil.create("div", "legend");
 
     legend.onAdd = () => {
       info.textContent = `Click anywhere on the map to add a report.`;
       return info;
     };
-
     legend.addTo(map);
 
     map.on('click', (e) => {
       console.log("Click registered, " + marker.length + ' markers on map.');
       removeAllMarkers(map);
       const { lat, lng } = e.latlng;
-      //setMarker(mar => [...mar, [lat, lng]]);
-      createMarker([lat, lng], map);
-      info.textContent = `new marker: ${e.latlng}`;
+      setMarker(mar => [...mar, [lat, lng]]);
       setLegend(info);
     })
 
@@ -103,7 +83,7 @@ const MyMarkers = ({ map }) => {
 
   return marker.length > 0 && legend !== undefined ? (
     <ShowMarkers
-      mapContainer={map}
+      map={map}
       legend={legend}
       markers={marker} />
   )
