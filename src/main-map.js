@@ -18,6 +18,14 @@ const reportUnsafe = (index, map, legend) => {
 const reportSafe = (index, map, legend) => {
 }
 
+const removeAllMarkers = (map) => {
+  map.eachLayer((layer) => {
+    if (layer.options && layer.options.pane === "markerPane") {
+      map.removeLayer(layer);
+    }
+  });
+}
+
 const removeMarker = (index, map, legend) => {
   map.eachLayer((layer) => {
     if (layer.options && layer.options.pane === "markerPane") {
@@ -68,6 +76,8 @@ const MyMarkers = ({ map }) => {
     legend.addTo(map);
 
     map.on('click', (e) => {
+      console.log("Click registered, " + marker.length + ' markers on map.');
+      removeAllMarkers(map);
       const { lat, lng } = e.latlng;
       setMarker(mar => [...mar, [lat, lng]]);
 
