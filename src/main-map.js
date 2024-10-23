@@ -45,6 +45,11 @@ const ShowMarkers = ({ map, legend, markers }) => {
         moveend(e) {
           const { lat, lng } = e.target.getLatLng();
           legend.textContent = `change position: ${lat} ${lng}`;
+        },
+        add(e) {
+          var popup = e.target.getPopup();
+          popup.setLatLng(e.target.getLatLng());
+          map.openPopup(popup);
         }
       }}
     >
