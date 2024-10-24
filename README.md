@@ -1,4 +1,4 @@
-# Safety heatmap
+# Safety Heatmap
 
 **About the project**
 
@@ -6,11 +6,10 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
 
 **Built with**
 
-- [![React][React.js]][React-url]
-
-* Leaflet
-* Javascript
-* CSS
+- React
+- Leaflet
+- Javascript
+- CSS
 
 **Installation and usage**
 
@@ -27,11 +26,3 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
    ```sh
    npm start
    ```
-
-**Contributers**
-
-- https://github.com/ERGeorgiev
-- https://github.com/zenos631
-
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
