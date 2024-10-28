@@ -4,12 +4,6 @@ import Button from './components/Button';
 import L from 'leaflet';
 import tileLayer from './tileLayer';
 
-// ToDo: If marker exists when clicked, move marker where the click is instead of creating a new one.
-// Why not create a new one? As we plan to add details to the marker in the future,
-// moving it would be better as it would keep the details.
-
-// ToDo: 
-
 const center = [52.07221, -1.01463];
 
 const reportUnsafe = () => {
@@ -77,7 +71,6 @@ const MyMarkers = ({ map }) => {
     legend.addTo(map);
 
     map.on('click', (e) => {
-      console.log("Click registered, " + marker.length + ' markers on map.');
       removeAllMarkers(map);
       const { lat, lng } = e.latlng;
       setMarker(mar => [...mar, [lat, lng]]);

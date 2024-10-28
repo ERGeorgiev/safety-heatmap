@@ -16,4 +16,10 @@ assignees: ''
 ### Technical Details
 
 
+### Designs
+
+
+### Depends On
+
+
 ### Acceptance Criteria
