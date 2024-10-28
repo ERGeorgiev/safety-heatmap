@@ -1,0 +1,1 @@
+DynamoDB Query is better in our case than GetItem or GetBulkItem, as it retrieves N amount of records, paginated, and also can likely deal better with missing items, which our database will have, so we can save on bandwidth and requests.
