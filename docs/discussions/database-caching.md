@@ -7,10 +7,10 @@ This info is based on the decided practical GeoHash lengths for our uses of [3 t
 | GeoHash Length | Estimated Max Cell Count | Children Cell Count Per Cell | Cache Time |
 | -------------- | ------------------------ | ---------------------------- | ---------- |
 | 3              | 3250                     | 33,554,432                   | 1 day      |
-| 4              | 100,000                  | 1,048,576                    | 1 day      |
-| 5              | 3,000,000                | 32,768                       | 6 hours    |
-| 6              | 100,000,000              | 1024                         | 1 hour     |
-| 7              | 3,500,000,000            | 32                           | 10 minutes |
+| 4              | 100,000                  | 1,048,576                    | 12 hours   |
+| 5              | 3,000,000                | 32,768                       | 3 hours    |
+| 6              | 100,000,000              | 1024                         | 30 minutes |
+| 7              | 3,500,000,000            | 32                           | 5 minutes  |
 | 8              | 110,000,000,000          | 0                            | 1 minute   |
 
 As fetching is done in chunks ([database-discussion-partitionKey.md](database-discussion-partitionKey.md)), caching should also be done in chunks, as otherwise a query of items between 000 and zzz wouldn't make use of caches on 001 aaa bbb etc, unless the whole partition was cached as 000 to zzz.

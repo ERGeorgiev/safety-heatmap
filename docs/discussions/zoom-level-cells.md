@@ -1,15 +1,15 @@
 # Zoom Level Cells
 
-| Level | Illustration                                                 |
-| ----- | ------------------------------------------------------------ |
-| **1** | ![zoom1](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom1.png) |
-| **2** | ![zoom2](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom2.png) |
-| **3** | ![zoom3](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom3.png) |
-| **4** | ![zoom4](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom4.png) |
-| **5** | ![zoom5](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom5.png) |
-| **6** | ![zoom6](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom6.png) |
-| **7** | ![zoom7](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom7.png) |
-| **8** | ![zoom8](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom8.png) |
+| Level | Estimated GeoHash Length | Illustration                                                 |
+| ----- | ------------------------ | ------------------------------------------------------------ |
+| **1** | **8** (M)                | ![zoom1](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom1.png) |
+| **2** | **8** (S)                | ![zoom2](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom2.png) |
+| **3** | **7** (S)                | ![zoom3](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom3.png) |
+| **4** | **6**                    | ![zoom4](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom4.png) |
+| **5** | **5**                    | ![zoom5](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom5.png) |
+| **6** | **4**                    | ![zoom6](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom6.png) |
+| **7** | **3**                    | ![zoom7](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom7.png) |
+| **8** | **2**                    | ![zoom8](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom8.png) |
 
 # Details
 
