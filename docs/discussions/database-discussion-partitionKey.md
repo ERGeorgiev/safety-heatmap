@@ -22,7 +22,7 @@ For the local sort key:
 
 - GeoHash suffix
 
-For the least GeoHash precision (still practical), I would want to fetch 000 to zzz.
+For the least GeoHash precision (that is still practical), I would want to fetch 000 to zzz.
 
 | GH Length | Partition Key  | Sort Key | Max Partitions | Max Sort Keys | Sort Query           |
 | --------- | -------------- | -------- | -------------- | ------------- | -------------------- |

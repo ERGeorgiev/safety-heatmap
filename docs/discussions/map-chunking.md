@@ -1,6 +1,11 @@
 Using Lat/Lon for the primary key sounds great, but then you realize that there's no uniformity between the regions with that, since the closer to the equator you get, the bigger the regions, and the other way around. It would be great to use a tech that gives regions with uniform size. Is there one? How do you split the earth in squares when its a sphere? While Lat/Long can be great, for simplicity's sake, we may want to consider GeoHash, as I am not sure how to properly map out Lat/Long to have somewhat uniform regions and also combine it into a number. Geohash also automatically parents regions with their child regions, so the partition key will be easier to figure out, despite losing on the number-comparison speed (as Geohash is a string).
 
 GeoHash explorer: https://geohash.softeng.co/gcpjfy6d
+A good video on GeoHash: https://www.youtube.com/watch?v=VXWcNGxKMq4
+GeoHash compared to S2/H3: https://benfeifke.com/posts/geospatial-indexing-explained/
+GeoHash is tech of choice due to its wide availability. As this is a small project, we should use as much available resources as we can, and this will ensure the highest chances of resource availability, despite the fact that it seems that S2 may be superior.
+
+With GeoHash, we can make good use of range queries, which are speedy and cost-efficient. We can also partition well.
 
 | Geohash Length | Cell Width | Cell Height |
 | -------------- | ---------- | ----------- |
@@ -46,4 +51,4 @@ What's the size expected given an average report rate and an average popularity,
 | 7              | 3,500,000,000                       | 224 GB |
 | 8              | 110,000,000,000                     | 7 TB   |
 
-The theoritical max database size is 6.4 GB as estimated in [database-stats.md](database-stats.md).
+The theoritical max database size is **6.4 GB** as estimated in [database-stats.md](database-stats.md).

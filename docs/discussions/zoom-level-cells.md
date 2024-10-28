@@ -1,15 +1,15 @@
 # Zoom Level Cells
 
-| Level | Estimated GeoHash Length | Illustration                                                 |
-| ----- | ------------------------ | ------------------------------------------------------------ |
-| **1** | **8** (M)                | ![zoom1](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom1.png) |
-| **2** | **8** (S)                | ![zoom2](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom2.png) |
-| **3** | **7** (S)                | ![zoom3](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom3.png) |
-| **4** | **6**                    | ![zoom4](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom4.png) |
-| **5** | **5**                    | ![zoom5](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom5.png) |
-| **6** | **4**                    | ![zoom6](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom6.png) |
-| **7** | **3**                    | ![zoom7](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom7.png) |
-| **8** | **2**                    | ![zoom8](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom8.png) |
+| Level | Proposed GeoHash Length | Illustration                                                 |
+| ----- | ----------------------- | ------------------------------------------------------------ |
+| **1** | **8** (M)               | ![zoom1](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom1.png) |
+| **2** | **8** (S)               | ![zoom2](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom2.png) |
+| **3** | **7** (S)               | ![zoom3](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom3.png) |
+| **4** | **6**                   | ![zoom4](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom4.png) |
+| **5** | **5**                   | ![zoom5](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom5.png) |
+| **6** | **4**                   | ![zoom6](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom6.png) |
+| **7** | **3**                   | ![zoom7](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom7.png) |
+| **8** | **2**                   | ![zoom8](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\zoom-level-regions\zoom8.png) |
 
 # Details
 
@@ -22,3 +22,4 @@ Note that the query response is received only by the server, not by the user, as
 | **M** | 512   | 33 KB                   | 0.1 MB               |
 | **L** | 32    | 2 KB                    | 7 KB                 |
 
+The exact size necessary for each Zoom level should become apparent after the completion of the https://github.com/ERGeorgiev/safety-heatmap/issues/19 issue, as we'll be able to observe how data resolution affects heatmap density in different zoom levels.

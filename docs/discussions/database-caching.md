@@ -1,6 +1,6 @@
 # Database Caching
 
-Using the GeoHash partition and sort key, we can assume that shorter GeoHashes have less noticable changes overtime, due to the fact that they parent so much more child cells, so individual cell changes are unlikely to reflect on a shorter GeoHash. As such, we can cache based on GeoHash length.
+Using the GeoHash partition and sort key, we can assume that shorter GeoHashes have less noticeable changes overtime, due to the fact that they parent so much more child cells, so individual cell changes are unlikely to reflect on a shorter GeoHash. As such, we can cache based on GeoHash length.
 
 This info is based on the decided practical GeoHash lengths for our uses of [3 to 8] from [map-chunking.md](map-chunking.md).
 
@@ -15,4 +15,3 @@ This info is based on the decided practical GeoHash lengths for our uses of [3 t
 
 As fetching is done in chunks ([database-discussion-partitionKey.md](database-discussion-partitionKey.md)), caching should also be done in chunks, as otherwise a query of items between 000 and zzz wouldn't make use of caches on 001 aaa bbb etc, unless the whole partition was cached as 000 to zzz.
 A further improvement would be partially using the cache, where, if the cached partition is [000 to 0zz] and the query is 000 to zzz, then the query can instead do 100 to zzz and use the cache for the rest of the data.
-
