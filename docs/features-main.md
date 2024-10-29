@@ -47,6 +47,6 @@ The data can be further processed to set intensity based on locality within the 
 As you can see in the below example, London has 6 reports in total, while Newmarket only has 1, yet their intensities are 0.75 and 0.25 respectively. The London reports could have been about the same situation, and given our small cells, it's highly likely that's the case, which doesn't necesarily mean that that specific danger in London is more dangerous than the one in Newmarket, it was just reported more times as there were more people roaming.
 Yet, due to the fact that the parent region can be incremented multiple times, London's bigger cell correctly represents the higher amount of unique incidents reported.
 
-![region_population_in_parent_regions](C:\Users\ergeo\Projects\safety-heatmap\_main\docs\img\region_population_in_parent_regions.png)
+![region_population_in_parent_regions](img\region_population_in_parent_regions.png)
 
 Another way to tackle it would be to offset reports by population density. So the 100,000 repots will be divided by 1,000,000 people living there. This though, creates a literal hotspot for tourists, so even if we had population density data, we'd find it much harder to predict changing tourist population.
