@@ -1,3 +1,5 @@
+# Database Discussion - Partitioning
+
 Fetching many regions is a big task, especially because DynamoDB was designed around single-item storage. The question is how to do it effectively.
 
 Note: https://stackoverflow.com/questions/32917452/cheapest-way-of-getting-multiple-items-from-dynamodb = BatchGetItems is equal to running a GetItem call per item in price. Using a Query, dynamoDB charges for total data size instead of per item, which is likely ideal for our use case. For that, one has to sort items correctly under partition key "containers" and fetch them using a sort key range: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html . Query can search BETWEEN sort key values, bigger than, starts with, etc. This is a bit counter-intuitive, as that would mean we would need to lower the cardinality on our partition key, which goes against the AWS advice to go for highest cardinality - https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/, but then again that doc also advocates having a good spread between partitions, so I suppose there needs to be a balance.
@@ -27,11 +29,11 @@ For the least GeoHash precision (that is still practical), I would want to fetch
 | GH Length | Partition Key  | Sort Key | Max Partitions | Max Sort Keys | Sort Query           |
 | --------- | -------------- | -------- | -------------- | ------------- | -------------------- |
 | **3**     | ShCe#          | gcp      | 1              | 32768         | 000 to zzz           |
-| **4**     | ShCe#**g**     | cpj      | 32             | 32768         | 0000 to zzzz         |
-| **5**     | ShCe#**gc**    | pjf      | 1024           | 32768         | 00000 to zzzzz       |
-| **6**     | ShCe#**gcp**   | jfy      | 32768          | 32768         | 000000 to zzzzzz     |
-| **7**     | ShCe#**gcpj**  | fy6      | 1048576        | 32768         | 0000000 to zzzzzzz   |
-| **8**     | ShCe#**gcpjf** | y6d      | 33554432       | 32768         | 00000000 to zzzzzzzz |
+| **4**     | ShCe#**g**     | cpj      | 32             | 32768         | P000 to Pzzz         |
+| **5**     | ShCe#**gc**    | pjf      | 1024           | 32768         | PP000 to PPzzz       |
+| **6**     | ShCe#**gcp**   | jfy      | 32768          | 32768         | PPP000 to PPPzzz     |
+| **7**     | ShCe#**gcpj**  | fy6      | 1048576        | 32768         | PPPP000 to PPPPzzz   |
+| **8**     | ShCe#**gcpjf** | y6d      | 33554432       | 32768         | PPPPP000 to PPPPPzzz |
 
 
 

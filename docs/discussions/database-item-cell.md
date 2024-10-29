@@ -14,6 +14,7 @@ Helpful ink for DynamoDB item size calculation: https://zaccharles.github.io/dyn
 - H1N - First half of the year, Night reports.
 - H2D - Second half of the year, Day reports.
 - H2N - Second half of the year, Night reports.
+- TimeToLive - When the item expires and will be deleted.
 
 # Examples
 
