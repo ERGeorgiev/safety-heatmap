@@ -29,7 +29,7 @@ Accept: application/json
 Content-Type: application/json
 User-Agent: curl/8.6.0
 {
-    "Size": 'S',
+    "Size": "S",
     "Range": {
         "TopLeft": {
             "Lat": 52.404200,
@@ -51,7 +51,7 @@ Content-Encoding: gzip
 Content-Length: 64
 Cache-Control: max-age=3600
 {
-    "Size": 'S',
+    "Size": "S",
     "Points": [
         {
             "Lat": 52.404200,
