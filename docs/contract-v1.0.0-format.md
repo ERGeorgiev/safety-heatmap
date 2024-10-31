@@ -6,7 +6,7 @@ As we are sending many heatmap points to the client, we need a way to do so effi
 
 ```json
 {
-    "Size": 'S',
+    "Size": "S",
     "Points": [
         {
             "Lat": 52.40420,
@@ -32,7 +32,7 @@ As we are sending many heatmap points to the client, we need a way to do so effi
 Should we use lat/lon to represent coordinates or geohashes? As JSON is a text-based format, we cannot take advantage of the usually smaller footprint of decimal types, as every digit is represented by a character. Geohashes can help us save on data, as they can encode multiple long lat/lon into a short string like 'gptjrltp'. Using https://dafrok.github.io/gzip-size-online/ to estimate GZIP size, and the below geohash coordinates example, we can tell that a single item of non-geohash is 14 bytes, while with geohash it's 8 bytes. That's saving 6 bytes per item.
 ```json
 {
-    "Size": 'S',
+    "Size": "S",
 	"Intensity10": [ "ghprphrh" ],
 	"Intensity100": [ "gcpjfy6d" ],
 	"Intensity20": [ "gcpdfy92" ],
