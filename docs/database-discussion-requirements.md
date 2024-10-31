@@ -27,7 +27,7 @@ SQL vs No-SQL? https://www.testgorilla.com/blog/sql-vs-nosql/
 We need the latter, as such, we should go for No-SQL.
 Also, No-SQL is cheaper: https://weld.app/blog/sql-or-nosql-databases-which-one-is-best-for-storing-data-in-your-organisation
 "NoSQL databases often require less hardware and infrastructure than SQL databases"
-he lack of schema in No-SQL is also very flexible for expansion.
+The lack of schema in No-SQL is also very flexible for expansion.
 
 **Our tech of choice**: No-SQL database, based also on the necessary and optional functions.
 

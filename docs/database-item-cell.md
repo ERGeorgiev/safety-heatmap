@@ -2,7 +2,7 @@
 
 A database item of type cell.
 
-Helpful ink for DynamoDB item size calculation: https://zaccharles.github.io/dynamodb-calculator/
+Helpful link for DynamoDB item size calculation: https://zaccharles.github.io/dynamodb-calculator/
 
 **Team Agreement**: Cells to expire within a year, we don't need data older than that.
 
