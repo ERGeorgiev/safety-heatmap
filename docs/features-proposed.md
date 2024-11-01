@@ -8,7 +8,7 @@ Users have accounts. When a report is submitted, it is saved to the user's accou
 
 ## Public User Reports
 
-The map displays user-submitted reports in the area as well as the heatmap, so any user can see other details on the report and be better informed.
+The map displays user-submitted reports in the area as well as the heatmap, so any user can see other details on the report and be better informed. This can be behind a toggle.
 
 ## Report Descriptions
 
