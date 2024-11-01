@@ -10,4 +10,4 @@ Approximately 6.66M crimes were recorded by the police in England and Wales in 2
 
 **Calculator**: https://calculator.aws/#/createCalculator/DynamoDB
 Calculating with **6.4GB storage** and **1200M annual writes**, that is **143$ per month**. 
-Adding query reads to that (even 8192 items, each 64 bytes, fits in the 1MB query limit), if 1M people intensely browsed the app for 10 minutes every day for a year, that would be 6000M reads, which adds 850$ monthly, but that can be greatly reduced using in-memory server caches.
+Adding query reads to that, counting a single read per browse as up to 8192 items of 64 bytes fit in the 1MB query limit, if 1M people intensely browsed the app for 15 minutes every day for a month, that would be 6000M reads, which adds 950$ monthly. The cost can be greatly reduced using in-memory server caches, which can bring that number down to 250$-477$ monthly, depending on cache settings.
