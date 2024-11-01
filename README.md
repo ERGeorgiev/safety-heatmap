@@ -41,6 +41,7 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
 
    1. Install extension `Go`
    2. Install extension `Even Better TOML`
+   3. Install extension `REST Client`
 
 ### Run
 

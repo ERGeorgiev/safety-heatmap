@@ -1,0 +1,32 @@
+# Get all todos
+GET http://localhost:5000/api/todos
+Accept: */*
+User-Agent: VS-Code
+
+###
+
+# Create a todo
+POST http://localhost:5000/api/todos
+Accept: */*
+User-Agent: VS-Code
+Content-Type: application/json
+
+{
+    "body":"hello world"
+}
+
+###
+
+# Complete a todo
+PATCH http://localhost:5000/api/todos/1
+Accept: */*
+User-Agent: VS-Code
+Content-Type: application/application/json
+
+###
+
+# Delete a todo
+DELETE http://localhost:5000/api/todos/1
+Accept: */*
+User-Agent: VS-Code
+Content-Type: application/application/json

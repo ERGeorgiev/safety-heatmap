@@ -1,5 +1,2 @@
 [build]
 exclude_dir = ["client", "tmp"]
-
-[log]
-main_only = true
