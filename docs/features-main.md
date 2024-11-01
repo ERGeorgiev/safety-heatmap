@@ -49,4 +49,4 @@ Yet, due to the fact that the parent region can be incremented multiple times, L
 
 ![region_population_in_parent_regions](img\region_population_in_parent_regions.png)
 
-Another way to tackle it would be to offset reports by population density. So the 100,000 repots will be divided by 1,000,000 people living there. This though, creates a literal hotspot for tourists, so even if we had population density data, we'd find it much harder to predict changing tourist population.
+Another way to tackle it would be to offset reports by population density. So the 100,000 reports will be divided by 1,000,000 people living there. This though, creates a literal hotspot for tourists, so even if we had population density data, we'd find it much harder to predict changing tourist population.
