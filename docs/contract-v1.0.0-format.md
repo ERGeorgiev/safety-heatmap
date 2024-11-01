@@ -42,7 +42,7 @@ Should we use lat/lon to represent coordinates or geohashes? As JSON is a text-b
 
 That means without using geohash, a single request can contain up to **71,428** coordinates in **1 MB**, while the geohash example can contain up to **125,000** coordinates. 
 
-Using geohash though, will raise complexity for the client, as so far Geohashes have not been part of any other requests, and on top of that it will require processing ever single entity to turn back to lat/lon to display on the map, which may result in slowdowns client-side. 
+Using geohash though, will raise complexity for the client, as so far Geohashes have not been part of any other requests, and on top of that it will require processing every single entity to turn back to lat/lon to display on the map, which may result in slowdowns client-side. 
 
 While the difference in size is big, both of these methods are acceptable, as we likely won't ever be returning over 10,000 items, and if we use lon/lat, we'll save the client extra processing time. Server-side, the processed geo-hashes can be cached.
 
