@@ -33,7 +33,7 @@ SQL vs No-SQL? https://www.testgorilla.com/blog/sql-vs-nosql/ "Essentially, SQL 
 - Some explanation between GetItem and Query: https://stackoverflow.com/questions/12241235/dynamodb-query-versus-getitem-for-single-item-retrieval-based-on-the-index. Seems like you can use both and GetItem is faster when you know the partition and sort key, but Query allows for Ranges, which can make it better than GetItem when it's the same partition key.
 - If the secondary key is used for user id, we can naturally prevent the same user reporting the same location.
 
-![dynamodb-operations-help](img\dynamodb-operations-help.png)
+![dynamodb-operations-help](./img/dynamodb-operations-help.png)
 
 ## Format
 

@@ -6,6 +6,6 @@ Overall, DynamoDb's Query is better in our case than GetItem or GetBulkItem, as 
 
 ## Visual Example
 
-![user-view-and-queries-example](img\user-view-and-queries-example.png)
+![user-view-and-queries-example](./img/user-view-and-queries-example.png)
 
 We can see in the above example that the biggest query ranges involve no more than 3 depths of the GeoHash sort key. As such, it's fitting that the Sort Key only spans 3 depths.

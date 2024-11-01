@@ -2,7 +2,7 @@
 
 To avoid fetching unrealistic amounts of reports and malicious targeting, to maintain speed and low cost, we agreed on using representative cells (cells) of size **0.001km^2** *(31.6228m x 31.6228m)* to display our data. The agreed size is still granular enough to allow people to report places like shady alleys. In the blow image you can see different cell sizes compared to each other with 4 cells displayed per image. On the left side, each square has a 30m height and width, while on the right side it's 50m.
 
-![maps_region_sizes](C:/Users/ergeo/Projects/safety-heatmap/_main/docs/img/maps_region_sizes.png)
+![maps_region_sizes](./img/maps_region_sizes.png)
 
 We can use different cell sizes based on zoom level ([zoom-level-cells.md](zoom-level-cells.md)), with the closest zoom being the decided optimal cell size.
 
@@ -69,22 +69,22 @@ The theoritical max database size is **6.4 GB** as estimated in [database-stats.
 
 All GeoHash cells are split as follows:
 
-![geohash-patterns-arrows](img\geohash-patterns\geohash-patterns-arrows.png)
+![geohash-patterns-arrows](./img/geohash-patterns/geohash-patterns-arrows.png)
 
 The arrows indicate what's the next cell in alphabetical order, which is useful for Range Queries. The Range Query cells to consider are as follows:
 
 | Size  | Cell Count | Illustration                                                 |
 | ----- | ---------- | ------------------------------------------------------------ |
-| Small | 4          | ![geohash-patterns-small](img\geohash-patterns\geohash-patterns-small.png) |
-| Medim | 8          | ![geohash-patterns-medium](img\geohash-patterns\geohash-patterns-medium.png) |
-| Large | 16         | ![geohash-patterns-large](img\geohash-patterns\geohash-patterns-large.png) |
+| Small | 4          | ![geohash-patterns-small](./img/geohash-patterns/geohash-patterns-small.png) |
+| Medim | 8          | ![geohash-patterns-medium](./img/geohash-patterns/geohash-patterns-medium.png) |
+| Large | 16         | ![geohash-patterns-large](./img/geohash-patterns/geohash-patterns-large.png) |
 
 A range query can be constructed as shown in the following illustration:
 
-![user-view-and-queries-example](img\user-view-and-queries-example.png)
+![user-view-and-queries-example](./img/user-view-and-queries-example.png)
 
 As you can see, this results in 4 range queries. Sadly, they cannot be combined into one, as it seems impossible to do so with GeoHash due to the Z-order curve, as illustrated below with the teal outlines:
 
-![geohash-neighbour-patterns](img\geohash-neighbour-patterns.png)
+![geohash-neighbour-patterns](./img/geohash-neighbour-patterns.png)
 
 Explanation: In the top left corner, on the left we have the whole cell 'p' and on the right we hvae the whole cell 'r'. As 'p' and 'r' are separated alphabetically by 'q', a range query cannot do 'p' to 'r', as that would include 'q' as well. As such, range-querying neighbouring cells is not possible in either representations of the Z-order curve.

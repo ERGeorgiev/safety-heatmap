@@ -37,7 +37,7 @@ To ensure there's not a big jump when a counter is reset, use an algorithm to sl
 
 **IMPORTANT!** H1D, H1N, H2D and H2N counters on the smallest cells can only be incremented **once a day** or **once a night**. This does not apply to parent cells, parent cells are incremented every time one of their child cells is incremented. This prevents heavily populated cells from having an unreasonable effect on intensity, but still allows them to represent the increase in danger that may come with more population, as llustrated below, where the red dots are reports and the green dots are people.
 
-![region_population_in_parent_regions](img\region_population_in_parent_regions.png)
+![region_population_in_parent_regions](./img/region_population_in_parent_regions.png)
 
 ## Examples
 

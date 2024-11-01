@@ -16,7 +16,7 @@ gcpjfv00 to gcpjfvzz
 
 Example of a range query, the user view is the outlined box in the middle:
 
-![user-view-and-queries-example](img\user-view-and-queries-example.png)
+![user-view-and-queries-example](./img/user-view-and-queries-example.png)
 
 More info: [map-chunking.md](map-chunking.md) 
 
@@ -51,4 +51,4 @@ Why a sort key length 3? Because, when looking at the geohash map (https://geoha
 
 Seems like grids alternate between BCFGUVYZ (odd length) and PRXZ (even length) arrangement. Regardless of that, the arrangement is still the same, just flipped, so as long as one knows the letters to fetch, one can build a range query following this diagram:
 
-![geohash-patterns](img\geohash-patterns.gif)
+![geohash-patterns](./img/geohash-patterns.gif)
