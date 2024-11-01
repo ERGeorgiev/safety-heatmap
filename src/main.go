@@ -58,7 +58,7 @@ func main() {
 			}
 		}
 
-		return c.Status(404).JSON(fiber.Map{"error": "To"})
+		return c.Status(404).JSON(fiber.Map{"error": "Todo not found"})
 	})
 
 	app.Delete("/api/todos/:id", func(c *fiber.Ctx) error {
