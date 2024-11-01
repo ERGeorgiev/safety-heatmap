@@ -2,8 +2,8 @@
 
 | Level | Proposed GeoHash Length | Illustration                                                 |
 | ----- | ----------------------- | ------------------------------------------------------------ |
-| **1** | **8** (M)               | ![zoom1](/img/zoom-level-regions/zoom1.png) |
-| **2** | **8** (S)               | ![zoom2](\img\zoom-level-regions\zoom2.png) |
+| **1** | **8** (M)               | ![zoom1](./img/zoom-level-regions/zoom1.png) |
+| **2** | **8** (S)               | ![zoom2](.\img\zoom-level-regions\zoom2.png) |
 | **3** | **7** (S)               | ![zoom3](img\zoom-level-regions\zoom3.png) |
 | **4** | **6**                   | ![zoom4](img\zoom-level-regions\zoom4.png) |
 | **5** | **5**                   | ![zoom5](img\zoom-level-regions\zoom5.png) |
