@@ -45,8 +45,6 @@ func main() {
 		todo.ID = len(todos) + 1
 		todos = append(todos, *todo)
 
-		fmt.Sprint()
-
 		return c.Status(201).JSON(todo)
 	})
 
