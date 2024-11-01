@@ -21,7 +21,7 @@ User-Agent: curl/8.6.0
 
 Success: **200 OK**
 
-## POST `safetyheatmap/heatmap/get`
+## POST `safetyheatmap/heatmap`
 
 ### Request
 
