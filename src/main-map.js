@@ -3,6 +3,7 @@ import { Marker, MapContainer, TileLayer, Popup } from 'react-leaflet';
 import Button from './components/Button';
 import L from 'leaflet';
 import tileLayer from './tileLayer';
+import "leaflet.heat";
 
 const center = [52.07221, -1.01463];
 
@@ -44,6 +45,11 @@ const ShowMarkers = ({ map, legend, markers }) => {
           var popup = e.target.getPopup();
           popup.setLatLng(e.target.getLatLng());
           map.openPopup(popup);
+          
+          const { lat, lng } = e.target.getLatLng();
+          var addressPoints = [
+            [lat, lng, 2]]
+          L.heatLayer(addressPoints).addTo(map);
         }
       }}
     >
