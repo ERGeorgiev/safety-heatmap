@@ -3,6 +3,7 @@
   "version": "0.1.5",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.59.19",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -12,8 +13,8 @@
     "leaflet-draw": "^1.0.4",
     "leaflet-fullscreen": "^1.0.2",
     "leaflet.heat": "^0.2.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-leaflet": "^3.2.0",
     "react-leaflet-draw": "^0.19.8",
     "react-leaflet-markercluster": "^3.0.0-rc1",
@@ -42,5 +43,8 @@
     "not dead",
     "not op_mini all"
   ],
-  "homepage": "https://tomik23.github.io/react-leaflet-examples"
+  "homepage": "https://tomik23.github.io/react-leaflet-examples",
+  "devDependencies": {
+    "@babel/plugin-transform-private-property-in-object": "^7.25.9"
+  }
 }
