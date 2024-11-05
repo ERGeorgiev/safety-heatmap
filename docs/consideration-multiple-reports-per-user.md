@@ -11,28 +11,28 @@ We also need to keep in mind that users on the same router will share the same I
 ## Scenarios
 
 **Scenario: Normal Report**  
-When a user tries to log a report  
-Then the corresponding cell's Daily and LastReport fields should be updated.  
+**When** a user tries to log a report  
+**Then** the corresponding cell's Daily and LastReport fields should be updated.  
 
 **Scenario: Cell Already Updated**  
-When a user tries to log a report  
-And the corresponding cell has already been updated today  
-Then only the LastReport field of the cell should be updated  
+**When** a user tries to log a report  
+**And** the corresponding cell has already been updated today  
+**Then** only the LastReport field of the cell should be updated  
 
-**Scenario: User Already Reported A Different Cell ** 
-When a user tries to log a report  
-And the user has already logged a report in the last 15 minutes  
-Then the corresponding cell should not be updated  
-And the report button should be disabled for 30 seconds  
-And a yellow status bar at the bottom should display "You recently submitted a report, try again later" for 30 seconds  
+**Scenario: User Already Reported A Different Cell **  
+**When** a user tries to log a report  
+**And** the user has already logged a report in the last 15 minutes  
+**Then** the corresponding cell should not be updated  
+**And** the report button should be disabled for 30 seconds  
+**And** a yellow status bar at the bottom should display "You recently submitted a report, try again later" for 30 seconds  
 
 **Scenario: User Recently Reported The Same Cell**  
-When a user tries to log a report  
-And the user has already logged a report in the last 15 minutes  
-And the corresponding cell has had a report today   
-And the report on the corresponding cell is from the user  
-Then the corresponding cell should not be updated  
-And a lime status bar at the bottom should display "Thank you, report already submitted." for 10 seconds  
+**When** a user tries to log a report  
+**And** the user has already logged a report in the last 15 minutes  
+**And** the corresponding cell has had a report today   
+**And** the report on the corresponding cell is from the user  
+**Then** the corresponding cell should not be updated  
+**And** a lime status bar at the bottom should display "Thank you, report already submitted." for 10 seconds  
 
 ## Storage
 
