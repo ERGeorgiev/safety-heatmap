@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 )
 
@@ -48,6 +49,11 @@ func main() {
 	}
 
 	PORT := os.Getenv("PORT")
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:3000",
+		AllowHeaders: "Origin,Content-type,Accept",
+	}))
 
 	app.Post("/api/safetyheatmap/heatmap/get", safetyHeatmapGetHeatmap)
 	app.Post("/api/safetyheatmap/report/add", safetyHeatmapAddReport)
