@@ -39,3 +39,7 @@ And a lime status bar at the bottom should display "Thank you, report already su
 Most of these limitations may not need a database and can be stored in-memory on the server given the low lifespan of 15 minutes per user, given an IP. 
 
 What about when the servers scale and the user may be switched to a different server? To prevent that from happening, we can use sticky server sessions that "stick" users to the same servers - https://serverfault.com/questions/941563. That may be sufficient to start with. If this doesn't work, we may have to store the IPs in the database under ShIp#192.000/000 with a TTL of 15min.
+
+## Daily Report Limit
+
+We have agreed to also limit the amount of reports per user per day to a maximum of 3.
