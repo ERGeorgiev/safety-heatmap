@@ -31,9 +31,8 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
    1. Navigate to `./src` and run:
 
       ```sh
-      go get github.com/gofiber/fiber/v2 # Fiber (Runs GO backend)
+      go mod download
       go install github.com/air-verse/air@latest # Air (Restarts Fiber when there are backend changes)
-      go get github.com/joho/godotenv # GoDotEnv (.env configuration file support)
       ```
 
 4. Install [Visual Studio Code](https://code.visualstudio.com/Download)
