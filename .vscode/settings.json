@@ -1,0 +1,14 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared": {},
+    "local": {
+      "host": "http://localhost:5000"
+    },
+    "dev": {
+      "host": "http://dev.host"
+    },
+    "staging": {
+      "host": "http://staging.host"
+    }
+  }
+}
