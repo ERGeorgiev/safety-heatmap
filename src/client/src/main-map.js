@@ -45,10 +45,9 @@ const ShowMarkers = ({ map, legend, markers }) => {
           var popup = e.target.getPopup();
           popup.setLatLng(e.target.getLatLng());
           map.openPopup(popup);
-          
+
           const { lat, lng } = e.target.getLatLng();
-          var addressPoints = [
-            [lat, lng, 2]]
+          var addressPoints = [[lat, lng, 2]]
           L.heatLayer(addressPoints).addTo(map);
         }
       }}
