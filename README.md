@@ -23,8 +23,7 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
    1. Navigate to `./src/client` and run:
 
       ```sh
-      npm install # Install Packages
-      npm audit fix --legacy-peer-deps # Resolve Dependencies
+      npm install --legacy-peer-deps # Install Packages
       ```
 
 3. Install [go](https://go.dev/doc/install)
