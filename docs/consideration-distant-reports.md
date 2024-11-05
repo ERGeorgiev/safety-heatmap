@@ -1,6 +1,6 @@
 # Consideration: Distant Reports
 
-Distance reports is about reports made from a great distance. Compared to the use case of "see-and-report" with reports in the vicinity, distant reports have many use cases, including:
+Distant reports is about reports made from a great distance. Compared to the use case of "see-and-report" with reports in the vicinity, distant reports have many use cases, including:
 
 - Reporting a historical experience
 - Reporting a danger you've found out about indirectly, like seeing it in the news
