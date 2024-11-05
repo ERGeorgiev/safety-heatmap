@@ -8,6 +8,7 @@ import "leaflet.heat";
 const center = [52.07221, -1.01463];
 
 function getHeatmap() {
+// cont. https://www.youtube.com/watch?v=lNd7XlXwlho 01:30:00
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['getHeatmap'],
     queryFn: async () => {
