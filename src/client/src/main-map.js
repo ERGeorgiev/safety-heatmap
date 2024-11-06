@@ -7,7 +7,56 @@ import "leaflet.heat";
 
 const center = [52.07221, -1.01463];
 
-const reportUnsafe = () => {
+const renderHeatmap = (map) => {
+  try {
+    fetch('http://localhost:5000/api/safetyheatmap/heatmap/get', {
+        method: 'POST',
+        headers: {
+          Accept: '*/*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          size: `S`,
+          range: {
+            topleft: {
+              lat: 1,
+              lng: 1
+            },
+            bottomright: {
+              lat: 1,
+              lng: 1
+            }
+          }
+        })
+      })
+      .then(response => { console.log(response); return response.json() })
+      .then(json => {
+        L.heatLayer(json).addTo(map);
+      });
+  } catch (error) {
+    console.error(error);
+  } finally {
+    removeAllMarkers(map);
+  }
+}
+
+const reportUnsafe = (map, popup) => { // https://reactnative.dev/docs/network
+  try {
+    fetch('http://localhost:5000/api/safetyheatmap/report/add', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(popup.getLatLng())
+      })
+      .then(response => console.log(response));
+  } catch (error) {
+    console.error(error);
+  } finally {
+    removeAllMarkers(map);
+    renderHeatmap(map);
+  }
 }
 
 const removeAllMarkers = (map) => {
@@ -29,6 +78,7 @@ function createIcon() {
 }
 
 const ShowMarkers = ({ map, legend, markers }) => {
+  const [ popup, setPopup ] = useState()
   return markers.map((marker, index) => {
     return <Marker
       icon={createIcon()}
@@ -45,15 +95,12 @@ const ShowMarkers = ({ map, legend, markers }) => {
           var popup = e.target.getPopup();
           popup.setLatLng(e.target.getLatLng());
           map.openPopup(popup);
-
-          const { lat, lng } = e.target.getLatLng();
-          var addressPoints = [[lat, lng, 2]]
-          L.heatLayer(addressPoints).addTo(map);
+          setPopup(popup);
         }
       }}
     >
       <Popup>
-        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => reportUnsafe(index, map, legend)} />
+        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => reportUnsafe(map, popup)} />
         <Button type='pill lg popup' text='❌ Cancel' onClickAction={() => removeAllMarkers(map)} />
       </Popup>
     </Marker>
@@ -100,7 +147,7 @@ const MapWrapper = () => {
       <TileLayer {...tileLayer} />
       <MyMarkers map={map} />
     </MapContainer>
-  )
+  );
 }
 
 export default MapWrapper;
