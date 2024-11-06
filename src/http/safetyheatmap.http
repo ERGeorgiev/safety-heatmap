@@ -9,11 +9,11 @@ Content-Type: application/json
     "range": {
         "topleft": {
             "lat": -100,
-            "lon": -100
+            "lng": -100
         },
         "bottomright": {
             "lat": 100,
-            "lon": 100
+            "lng": 100
         }
     }
 }
@@ -28,5 +28,5 @@ Content-Type: application/json
 
 {
     "lat":2,
-    "lon":2
+    "lng":2
 }

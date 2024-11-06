@@ -14,11 +14,12 @@ import (
 
 type Point struct {
 	Lat float32 `json:"lat" validate:"required,numeric"`
-	Lon float32 `json:"lon" validate:"required,numeric"`
+	Lng float32 `json:"lng" validate:"required,numeric"`
 }
 
 type HeatPoint struct {
-	Point
+	Lat       float32 `json:"lat" validate:"required,numeric"`
+	Lng       float32 `json:"lng" validate:"required,numeric"`
 	Intensity float32 `json:"intensity" validate:"required"`
 }
 
@@ -32,11 +33,7 @@ type GetHeatmapRequestRange struct {
 	BottomRight Point `json:"bottomright" validate:"required"`
 }
 
-type Heatmap struct {
-	Points []HeatPoint `json:"points"`
-}
-
-var reports []Point = []Point{}
+var reports []HeatPoint = []HeatPoint{}
 
 func main() {
 	app := fiber.New()
@@ -87,7 +84,11 @@ func safetyHeatmapAddReport(c *fiber.Ctx) error {
 		}
 	}
 
-	reports = append(reports, *request)
+	heatpoint := &HeatPoint{}
+	heatpoint.Lat = request.Lat
+	heatpoint.Lng = request.Lng
+	heatpoint.Intensity = 1
+	reports = append(reports, *heatpoint)
 
 	return c.SendStatus(http.StatusCreated)
 }

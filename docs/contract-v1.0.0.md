@@ -12,7 +12,7 @@ User-Agent: curl/8.6.0
 {
     "pos": {
         "lat": 52.404200,
-        "lon": -2.701379,
+        "lng": -2.701379,
     }
 }
 ```
@@ -35,11 +35,11 @@ User-Agent: curl/8.6.0
     "range": {
         "topLeft": {
             "lat": 52.404200,
-            "lon": -2.701379,
+            "lng": -2.701379,
         },
         "bottomRight": {
             "lat": 52.405200,
-            "lon": -2.701379,
+            "lng": -2.701379,
         },
     }
 }
@@ -58,12 +58,12 @@ Cache-Control: max-age=3600
     "points": [
         {
             "lat": 52.404200,
-            "lon": -2.701379,
+            "lng": -2.701379,
             "intensity": 0.1
         },
         {
             "lat": 52.404200,
-            "lon": -2.701379,
+            "lng": -2.701379,
             "intensity": 1
         }
     ]

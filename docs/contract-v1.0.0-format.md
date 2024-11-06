@@ -10,17 +10,17 @@ As we are sending many heatmap points to the client, we need a way to do so effi
     "Points": [
         {
             "Lat": 52.40420,
-            "Lon": -2.70137,
+            "Lng": -2.70137,
             "Intensity": 0.1
         },
         {
             "Lat": 52.404200,
-            "Lon": -2.701379,
+            "Lng": -2.701379,
             "Intensity": 1
         },
         {
             "Lat": 52.40520,
-            "Lon": -2.70637,
+            "Lng": -2.70637,
             "Intensity": 0.3
         }
     ]

@@ -7,122 +7,56 @@ import "leaflet.heat";
 
 const center = [52.07221, -1.01463];
 
-function getHeatmap() {
-// cont. https://www.youtube.com/watch?v=lNd7XlXwlho 01:30:00
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['getHeatmap'],
-    queryFn: async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/safetyheatmap/heatmap/get")
-        const data = await res.json()
-
-        if (!res.ok) {
-          throw new Error(data.message || "Something went wrong")
-        }
-        return data || []
-      } catch (error) {
-        console.log(error)
-      }
-    },
-  })
-
-  if (isPending) {
-    return <span>Loading...</span>
-  }
-
-  if (isError) {
-    return <span>Error: {error.message}</span>
-  }
-
-  // We can assume by this point that `isSuccess === true`
-  return (
-    <ul>
-      {data.map((point) => (
-        <li key={point.lat}>{point.lon}</li>
-      ))}
-    </ul>
-  )
-}
-
-const renderHeatmap = () => {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['getHeatmap'],
-    queryFn: async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/safetyheatmap/heatmap/get")
-        const data = await res.json()
-
-        if (!res.ok) {
-          throw new Error(data.message || "Something went wrong")
-        }
-        return data || []
-      } catch (error) {
-        console.log(error)
-      }
-    },
-  })
-
-  if (isPending) {
-    // return <span>Loading...</span>
-  }
-
-  if (isError) {
-    // return <span>Error: {error.message}</span>
-    console.log(error)
-    return
-  }
-
-  var heatPoints = data.map((p) => [p.lat, p.lng, 1])
-  L.heatLayer(heatPoints).addTo(map);
-}
-
-const reportUnsafe = (popup) => {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['addReport'],
-    queryFn: async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/safetyheatmap/report/add", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ body: newTodo }),
+const renderHeatmap = (map) => {
+  try {
+    fetch('http://localhost:5000/api/safetyheatmap/heatmap/get', {
+        method: 'POST',
+        headers: {
+          Accept: '*/*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          size: `S`,
+          range: {
+            topleft: {
+              lat: 1,
+              lng: 1
+            },
+            bottomright: {
+              lat: 1,
+              lng: 1
+            }
+          }
         })
-        const data = await res.json()
-
-        if (!res.ok) {
-          throw new Error(data.message || "Something went wrong")
-        }
-        return data || []
-      } catch (error) {
-        console.log(error)
-      }
-    },
-  })
-
-  if (isPending) {
-    return <span>Loading...</span>
+      })
+      .then(response => { console.log(response); return response.json() })
+      .then(json => {
+        L.heatLayer(json).addTo(map);
+      });
+  } catch (error) {
+    console.error(error);
+  } finally {
+    removeAllMarkers(map);
   }
+}
 
-  if (isError) {
-    return <span>Error: {error.message}</span>
+const reportUnsafe = (map, popup) => { // https://reactnative.dev/docs/network
+  try {
+    fetch('http://localhost:5000/api/safetyheatmap/report/add', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(popup.getLatLng())
+      })
+      .then(response => console.log(response));
+  } catch (error) {
+    console.error(error);
+  } finally {
+    removeAllMarkers(map);
+    renderHeatmap(map);
   }
-
-  const popupLatLng = popup.getLatLng();
-  var heatPoints = data.map((p) => [p.lat, p.lng, 1])
-  L.heatLayer(heatPoints).addTo(map);
-
-  renderHeatmap();
-  removeAllMarkers(map);
-
-  // We can assume by this point that `isSuccess === true`
-  // return (
-  //   <ul>
-  //     {data.map((point) => (
-  //       <li key={point.lat}>{point.lon}</li>
-  //     ))}
-  //   </ul>
-  // )
 }
 
 const removeAllMarkers = (map) => {
@@ -166,7 +100,7 @@ const ShowMarkers = ({ map, legend, markers }) => {
       }}
     >
       <Popup>
-        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => reportUnsafe(popup)} />
+        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => reportUnsafe(map, popup)} />
         <Button type='pill lg popup' text='❌ Cancel' onClickAction={() => removeAllMarkers(map)} />
       </Popup>
     </Marker>
@@ -208,12 +142,15 @@ const MyMarkers = ({ map }) => {
 
 const MapWrapper = () => {
   const [map, setMap] = useState(null);
-  return (
+  
+  var mapContainer = (
     <MapContainer whenCreated={setMap} center={center} zoom={15} scrollWheelZoom={true}>
       <TileLayer {...tileLayer} />
       <MyMarkers map={map} />
     </MapContainer>
   )
+
+  return mapContainer;
 }
 
 export default MapWrapper;
