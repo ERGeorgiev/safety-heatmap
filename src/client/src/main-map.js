@@ -142,15 +142,12 @@ const MyMarkers = ({ map }) => {
 
 const MapWrapper = () => {
   const [map, setMap] = useState(null);
-  
-  var mapContainer = (
+  return (
     <MapContainer whenCreated={setMap} center={center} zoom={15} scrollWheelZoom={true}>
       <TileLayer {...tileLayer} />
       <MyMarkers map={map} />
     </MapContainer>
-  )
-
-  return mapContainer;
+  );
 }
 
 export default MapWrapper;
