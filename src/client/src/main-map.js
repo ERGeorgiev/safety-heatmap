@@ -32,6 +32,11 @@ const renderHeatmap = (map) => {
       .then(response => { console.log(response); return response.json() })
       .then(json => {
         L.heatLayer(json).addTo(map);
+        for (var i = 0; i < json.length; i++){
+          var p = json[i];
+          var icon = createIconRipple();
+          var marker = new L.marker([p.lat, p.lng], { icon: icon }).addTo(map);
+        }
       });
   } catch (error) {
     console.error(error);
@@ -64,6 +69,15 @@ const removeAllMarkers = (map) => {
     if (layer.options && layer.options.pane === "markerPane") {
       map.removeLayer(layer);
     }
+  });
+}
+
+function createIconRipple() {
+  return L.divIcon({
+    className: "custom-icon-ripple",
+    iconSize: L.point(24, 24),
+    html: `<svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="-6.7 0 15 10" width=100% height=100%><path stroke-width:4; stroke:rgb(43, 222, 221); fill-rule="evenodd" clip-rule="evenodd" d="M1 10C0.4477 10 0 9.5523 0 9C0 8.4477 0.4477 8 1 8C1.5523 8 2 8.4477 2 9C2 9.5523 1.5523 10 1 10zM1 0C1.5523 0 2 0.44772 2 1V6C2 6.5523 1.5523 7 1 7C0.4477 7 0 6.5523 0 6V1C0 0.44772 0.4477 0 1 0z" fill="#000000"/></svg>`,
+    iconAnchor: [12, 12],
   });
 }
 
