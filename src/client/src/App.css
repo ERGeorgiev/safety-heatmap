@@ -81,6 +81,14 @@ button:active {
   animation: custom-icon-ripple-anim 2s ease-out infinite;
 }
 
+.custom-icon-ripple-low {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: 0 0 0 0.3em rgba(0,0,0,0.75);
+  animation: custom-icon-ripple-low-anim 4s ease-out infinite;
+}
+
 @keyframes custom-icon-ripple-anim {
   0% {
     opacity: 0.8;
@@ -91,6 +99,25 @@ button:active {
     /* transform: scale(1); */
   }
   90% {
+    opacity: 0;
+    /* transform: scale(1.5); */
+  }
+  100% {
+    opacity: 0;
+    /* transform: scale(1.5); */
+  }
+}
+
+@keyframes custom-icon-ripple-low-anim {
+  0% {
+    opacity: 0.35;
+    /* transform: scale(1); */
+  }
+  10% {
+    opacity: 0.35;
+    /* transform: scale(1); */
+  }
+  50% {
     opacity: 0;
     /* transform: scale(1.5); */
   }
