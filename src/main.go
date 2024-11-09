@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -17,12 +18,6 @@ type Point struct {
 	Lng float32 `json:"lng" validate:"required,numeric"`
 }
 
-type HeatPoint struct {
-	Lat       float32 `json:"lat" validate:"required,numeric"`
-	Lng       float32 `json:"lng" validate:"required,numeric"`
-	Intensity float32 `json:"intensity" validate:"required"`
-}
-
 type GetHeatmapRequest struct {
 	Size  string                 `json:"size" validate:"required,min=1,max=1"`
 	Range GetHeatmapRequestRange `json:"range" validate:"required"`
@@ -33,7 +28,25 @@ type GetHeatmapRequestRange struct {
 	BottomRight Point `json:"bottomright" validate:"required"`
 }
 
-var reports []HeatPoint = []HeatPoint{}
+type GetHeatmapResponse struct {
+	Size   string                    `json:"size" validate:"required,min=1,max=1"`
+	Points []GetHeatmapResponsePoint `json:"points" validate:"required"`
+}
+
+type GetHeatmapResponsePoint struct {
+	Lat       float32 `json:"lat" validate:"required,numeric"`
+	Lng       float32 `json:"lng" validate:"required,numeric"`
+	Intensity float32 `json:"intensity" validate:"required"`
+	Age       int     `json:"age" validate:"required"`
+}
+
+type Report struct {
+	Lat      float32 `json:"lat" validate:"required,numeric"`
+	Lng      float32 `json:"lng" validate:"required,numeric"`
+	DateTime int
+}
+
+var reports []Report = []Report{}
 
 func main() {
 	app := fiber.New()
@@ -84,10 +97,10 @@ func safetyHeatmapAddReport(c *fiber.Ctx) error {
 		}
 	}
 
-	heatpoint := &HeatPoint{}
+	heatpoint := &Report{}
 	heatpoint.Lat = request.Lat
 	heatpoint.Lng = request.Lng
-	heatpoint.Intensity = 1
+	heatpoint.DateTime = int(time.Now().Unix())
 	reports = append(reports, *heatpoint)
 
 	return c.SendStatus(http.StatusCreated)
@@ -115,7 +128,23 @@ func safetyHeatmapGetHeatmap(c *fiber.Ctx) error {
 		}
 	}
 
-	return c.Status(200).JSON(reports)
+	response := &GetHeatmapResponse{}
+	response.Size = "S"
+	heatpoints := make([]GetHeatmapResponsePoint, 0, len(reports))
+	for _, report := range reports {
+		var point = &GetHeatmapResponsePoint{}
+		point.Lat = report.Lat
+		point.Lng = report.Lng
+		point.Intensity = 1
+		point.Age = int(time.Now().Unix()) - report.DateTime
+		if os.Getenv("ENV") != "prod" {
+			point.Age *= 120
+		}
+		heatpoints = append(heatpoints, *point)
+	}
+	response.Points = heatpoints
+
+	return c.Status(200).JSON(response)
 }
 
 // For Loop Example

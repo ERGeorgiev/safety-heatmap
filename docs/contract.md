@@ -59,12 +59,14 @@ Cache-Control: max-age=3600
         {
             "lat": 52.404200,
             "lng": -2.701379,
-            "intensity": 0.1
+            "intensity": 0.1,
+            "age": 132
         },
         {
             "lat": 52.404200,
             "lng": -2.701379,
-            "intensity": 1
+            "intensity": 1,
+            "age": 5011
         }
     ]
 }
