@@ -7,6 +7,8 @@ import "leaflet.heat";
 
 const center = [52.07221, -1.01463];
 var selectionMarker;
+var legendElement;
+var reportAddedTime = 0;
 
 const renderHeatmap = (map) => {
   console.log("rendering heatmap")
@@ -31,33 +33,53 @@ const renderHeatmap = (map) => {
           }
         })
       })
-      .then(response => { return response.json() })
-      .then(json => {
-        var points = json.points;
-        var heatLayer = L.heatLayer(points)
-        heatLayer.addTo(map);
-        for (var i = 0; i < points.length; i++){
-          var p = points[i];
-          if (p.age <= 15 * 60) {
-            var icon = createIconRipple();
-            var marker = new L.marker([p.lat, p.lng], { icon: icon });
-            marker.addTo(map);
-          }
-          else if (p.age <= 60 * 60) {
-            var icon = createIconRippleLow();
-            var marker = new L.marker([p.lat, p.lng], { icon: icon });
-            marker.addTo(map);
-          }
+      .then(response => {
+        if (response.status === 200) {
+          response.json().then(json => {
+            // Add Heatmap
+            removeHeatlayer(map);
+            var points = json.points;
+            var heatLayer = L.heatLayer(points)
+            heatLayer.addTo(map);
+
+            // Add Marks
+            var icon;
+            var marker;
+            for (var i = 0; i < points.length; i++){
+              var p = points[i];
+              if (p.age <= 15 * 60) {
+                icon = createIconMark();
+                marker = new L.marker([p.lat, p.lng], { icon: icon });
+                marker.addTo(map);
+              }
+              else if (p.age <= 60 * 60) {
+                icon = createIconMarkLow();
+                marker = new L.marker([p.lat, p.lng], { icon: icon });
+                marker.addTo(map);
+              }
+            }
+          })
+        }
+        else {
+          console.error(response);
         }
       });
   } catch (error) {
     console.error(error);
-  } finally {
-    removeHeatlayer(map);
   }
 }
 
+const canAddReport = () => {
+  return Date.now() / 1000 - reportAddedTime > 5
+}
+
 const reportUnsafe = (map, popup) => { // https://reactnative.dev/docs/network
+  if (canAddReport() !== true) {
+    showInfo(map, "You recently submitted a report ⏳", "yellow");
+    return;
+  }
+  
+  reportAddedTime = Date.now() / 1000;
   try {
     fetch('http://localhost:5000/api/safetyheatmap/report/add', {
         method: 'POST',
@@ -67,11 +89,20 @@ const reportUnsafe = (map, popup) => { // https://reactnative.dev/docs/network
         },
         body: JSON.stringify(popup.getLatLng())
       })
+      .then(response => {
+        if (response.status === 201) {
+          showInfo(map, "Thank you for your report 👍", "green");
+          removeAllMarkers(map);
+          renderHeatmap(map);
+        }
+        else {
+          showInfo(map, "Something went wrong ❌", "red");
+          console.error(response);
+        }
+      })
   } catch (error) {
     console.error(error);
-  } finally {
-    removeAllMarkers(map);
-    renderHeatmap(map);
+    showInfo(map, "Something went wrong ❌", "red");
   }
 }
 
@@ -91,18 +122,18 @@ const removeAllMarkers = (map) => {
   });
 }
 
-function createIconRippleLow() {
+function createIconMarkLow() {
   return L.divIcon({
-    className: "custom-icon-ripple-low",
+    className: "custom-icon-mark-low",
     iconSize: L.point(24, 24),
     html: `<svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="-6.7 0 15 10" width=100% height=100%><path stroke-width:4; stroke:rgb(43, 222, 221); fill-rule="evenodd" clip-rule="evenodd" d="M1 10C0.4477 10 0 9.5523 0 9C0 8.4477 0.4477 8 1 8C1.5523 8 2 8.4477 2 9C2 9.5523 1.5523 10 1 10zM1 0C1.5523 0 2 0.44772 2 1V6C2 6.5523 1.5523 7 1 7C0.4477 7 0 6.5523 0 6V1C0 0.44772 0.4477 0 1 0z" fill="#000000"/></svg>`,
     iconAnchor: [12, 12],
   });
 }
 
-function createIconRipple() {
+function createIconMark() {
   return L.divIcon({
-    className: "custom-icon-ripple",
+    className: "custom-icon-mark",
     iconSize: L.point(24, 24),
     html: `<svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="-6.7 0 15 10" width=100% height=100%><path stroke-width:4; stroke:rgb(43, 222, 221); fill-rule="evenodd" clip-rule="evenodd" d="M1 10C0.4477 10 0 9.5523 0 9C0 8.4477 0.4477 8 1 8C1.5523 8 2 8.4477 2 9C2 9.5523 1.5523 10 1 10zM1 0C1.5523 0 2 0.44772 2 1V6C2 6.5523 1.5523 7 1 7C0.4477 7 0 6.5523 0 6V1C0 0.44772 0.4477 0 1 0z" fill="#000000"/></svg>`,
     iconAnchor: [12, 12],
@@ -119,7 +150,7 @@ function createIcon() {
   });
 }
 
-const ShowMarkers = ({ map, legend, points }) => {
+const ShowMarkers = ({ map, points }) => {
   const [ popup, setPopup ] = useState()
   return points.map((point, index) => {
     return <Marker
@@ -130,8 +161,7 @@ const ShowMarkers = ({ map, legend, points }) => {
       draggable={true}
       eventHandlers={{
         moveend(e) {
-          const { lat, lng } = e.target.getLatLng();
-          legend.textContent = `change position: ${lat} ${lng}`;
+          // const { lat, lng } = e.target.getLatLng();
         },
         add(e) {
           selectionMarker = e.target;
@@ -143,42 +173,49 @@ const ShowMarkers = ({ map, legend, points }) => {
       }}
     >
       <Popup>
-        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => reportUnsafe(map, popup)} />
+        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => { reportUnsafe(map, popup); selectionMarker.remove(); }} />
         <Button type='pill lg popup' text='❌ Cancel' onClickAction={() => selectionMarker.remove()} />
       </Popup>
     </Marker>
   })
 }
 
+function showInfo(map, text, color = "") {
+  if (legendElement) legendElement.remove();
+  legendElement = L.control({ position: "bottomleft" });
+  const info = L.DomUtil.create("h1", "legend " + color);
+
+  legendElement.onAdd = () => {
+    info.textContent = "  " + text + "  ";
+    return info;
+  };
+  legendElement.addTo(map);
+}
+
 const MyMarkers = ({ map }) => {
   const [marker, setMarker] = useState([])
-  const [legend, setLegend] = useState()
 
   useEffect(() => {
     if (!map) return;
     renderHeatmap(map);
-    const legend = L.control({ position: "bottomleft" });
-    const info = L.DomUtil.create("div", "legend");
-
-    legend.onAdd = () => {
-      info.textContent = `Click anywhere on the map to add a report.`;
-      return info;
-    };
-    legend.addTo(map);
+    showInfo(map, `Press on the map to add a report 👆`);
 
     map.on('click', (e) => {
       if (selectionMarker) selectionMarker.remove();
-      const { lat, lng } = e.latlng;
-      setMarker(mar => [...mar, [lat, lng]]);
-      setLegend(info);
+      if (canAddReport()) {
+        const { lat, lng } = e.latlng;
+        setMarker(mar => [...mar, [lat, lng]]);
+      }
+      else {
+        showInfo(map, "You recently submitted a report ⏳", "yellow");
+      }
     })
 
   }, [map]);
 
-  return marker.length > 0 && legend !== undefined ? (
+  return marker.length > 0 ? (
     <ShowMarkers
       map={map}
-      legend={legend}
       points={marker} />
   )
     : null
