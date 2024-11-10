@@ -173,7 +173,7 @@ const ShowMarkers = ({ map, points }) => {
       }}
     >
       <Popup>
-        <Button type='unsafe pill lg popup' text='⚫ Report Unsafe' onClickAction={() => { reportUnsafe(map, popup); selectionMarker.remove(); }} />
+        <Button type='unsafe pill lg popup' text='Report Unsafe' onClickAction={() => { reportUnsafe(map, popup); selectionMarker.remove(); }} />
         <Button type='pill lg popup' text='❌ Cancel' onClickAction={() => selectionMarker.remove()} />
       </Popup>
     </Marker>
