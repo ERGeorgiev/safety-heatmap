@@ -13,7 +13,7 @@ var reportAddedTime = 0;
 const renderHeatmap = (map) => {
   console.log("rendering heatmap")
   try {
-    fetch('http://localhost:5000/api/safetyheatmap/heatmap/get', {
+    fetch('http://localhost:8080/api/safetyheatmap/heatmap/get', {
         method: 'POST',
         headers: {
           Accept: '*/*',
@@ -81,7 +81,7 @@ const reportUnsafe = (map, popup) => { // https://reactnative.dev/docs/network
   
   reportAddedTime = Date.now() / 1000;
   try {
-    fetch('http://localhost:5000/api/safetyheatmap/report/add', {
+    fetch('http://localhost:8080/api/safetyheatmap/report/add', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

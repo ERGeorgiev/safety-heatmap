@@ -2,7 +2,7 @@
   "rest-client.environmentVariables": {
     "$shared": {},
     "local": {
-      "host": "http://localhost:5000"
+      "host": "http://localhost:8080"
     },
     "dev": {
       "host": "http://dev.host"
