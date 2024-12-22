@@ -1,0 +1,35 @@
+# https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application
+services:
+  server:
+    image: golang:1.22.10
+    environment:
+      - ENV=prod
+      - PORT=8080
+    build:
+      context: .
+      args:
+        - ENV=prod
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - internal_network
+    # command: go run main.go
+  client:
+    image: node:22.11
+    environment:
+      - ENV=prod
+      - NODE_ENV=prod
+      - PORT=3000
+    build:
+      context: ./client
+      args:
+        - ENV=prod
+        - NODE_ENV=prod
+        - REACT_APP_BACKEND_URL=http://server:8080
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - internal_network
+    # command: npm start

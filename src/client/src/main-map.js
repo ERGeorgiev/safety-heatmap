@@ -6,14 +6,14 @@ import tileLayer from './tileLayer';
 import "leaflet.heat";
 
 const center = [52.07221, -1.01463];
+const backendUrl = process.env.REACT_APP_ENV === "prod" ? "http://server:8080" : 'http://localhost:8080';
 var selectionMarker;
 var legendElement;
 var reportAddedTime = 0;
 
 const renderHeatmap = (map) => {
   console.log("rendering heatmap")
-  try {
-    fetch('http://localhost:8080/api/safetyheatmap/heatmap/get', {
+    fetch(`${backendUrl}/api/safetyheatmap/heatmap/get`, {
         method: 'POST',
         headers: {
           Accept: '*/*',
@@ -81,7 +81,7 @@ const reportUnsafe = (map, popup) => { // https://reactnative.dev/docs/network
   
   reportAddedTime = Date.now() / 1000;
   try {
-    fetch('http://localhost:8080/api/safetyheatmap/report/add', {
+    fetch(`${backendUrl}/api/safetyheatmap/report/add`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

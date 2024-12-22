@@ -1,6 +1,6 @@
 FROM golang:1.22.10
 
-ENV ENV=prod
+ENV ENV=${ENV}
 ENV PORT=8080
 ENV GOPATH=""
 

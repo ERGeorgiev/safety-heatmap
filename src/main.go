@@ -57,6 +57,7 @@ func main() {
 			log.Fatal("Error loading .env file")
 		}
 	}
+	log.Print("Environment: " + os.Getenv("ENV"))
 
 	PORT := os.Getenv("PORT")
 
