@@ -13,7 +13,6 @@ var reportAddedTime = 0;
 
 const renderHeatmap = (map) => {
   console.log("rendering heatmap")
-  console.log(process.env)
   try {
     fetch(`${backendUrl}/api/safetyheatmap/heatmap/get`, {
         method: 'POST',
