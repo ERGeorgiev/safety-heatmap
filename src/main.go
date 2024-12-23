@@ -57,7 +57,7 @@ func main() {
 			log.Fatal("Error loading .env file")
 		}
 	}
-	log.Print("Environment: " + os.Getenv("ENV"))
+	log.Print("ENV=" + os.Getenv("ENV"))
 
 	PORT := os.Getenv("PORT")
 
@@ -70,7 +70,7 @@ func main() {
 	app.Post("/api/safetyheatmap/report/add", safetyHeatmapAddReport)
 
 	if os.Getenv("ENV") == "prod" {
-		app.Static("/", ".client/dist")
+		app.Static("/", "./client/build")
 	}
 
 	log.Fatal(app.Listen(":" + PORT))

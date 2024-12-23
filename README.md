@@ -55,3 +55,15 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
    npm start
    ```
 
+### Issues
+
+#### Docker Performance Impact When Idle or Off
+
+If Docker (or rather wsl and wslservice) is causing a performance impact even when not running, such as high cpu/memory usage, try these powershell commands: 
+```
+wsl --shutdown
+```
+and if there are still issues, try:
+```
+taskkill /F /im wslservice.exe
+```
