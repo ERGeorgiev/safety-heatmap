@@ -6,13 +6,14 @@ import tileLayer from './tileLayer';
 import "leaflet.heat";
 
 const center = [52.07221, -1.01463];
-const backendUrl = process.env.REACT_APP_ENV === "prod" ? "http://server:8080" : 'http://localhost:8080';
+const backendUrl = process.env.REACT_APP_ENV === "prod" ? "http://localhost:8080" : 'http://localhost:8080';
 var selectionMarker;
 var legendElement;
 var reportAddedTime = 0;
 
 const renderHeatmap = (map) => {
   console.log("rendering heatmap")
+  console.log(process.env)
   try {
     fetch(`${backendUrl}/api/safetyheatmap/heatmap/get`, {
         method: 'POST',

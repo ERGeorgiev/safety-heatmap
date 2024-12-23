@@ -3,6 +3,10 @@
 # --------------------------
 FROM node:22.12 AS client-builder
 
+# ENV vars
+ENV REACT_APP_PORT=8080
+ENV REACT_APP_ENV=prod
+
 # Create app directory and install dependencies
 WORKDIR /app
 COPY ./client/package.json .
@@ -42,8 +46,6 @@ COPY --from=client-builder /app/build /client/build
 # ENV Vars
 ENV ENV=prod
 ENV PORT=8080
-ENV REACT_APP_PORT=8080
-ENV REACT_APP_ENV=prod
 
 # Expose 8080 so we can run on that port
 EXPOSE 8080
