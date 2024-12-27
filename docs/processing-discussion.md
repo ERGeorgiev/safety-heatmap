@@ -139,7 +139,9 @@ I removed the role AWSCloudMapRegisterInstanceAccess from the ECS Tasks, it gave
 
 I think it will be okay, but if the Gateway starts throwing 500 at any point, this might be the reason.
 
-ToDo: Disable CloudWatch logs.
+ToDo: domain name for https://oopkvcjf5j.execute-api.eu-west-1.amazonaws.com/
+ - Certificate pending: https://eu-west-1.console.aws.amazon.com/acm/home?region=eu-west-1#/certificates/503474d4-267c-4057-8f1c-8a84399e3190
+ - Add domain name: https://eu-west-1.console.aws.amazon.com/apigateway/main/publish/domain-names/create?api=oopkvcjf5j&region=eu-west-1
 
 Chat GPS instructions:
 
