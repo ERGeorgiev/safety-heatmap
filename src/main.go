@@ -51,29 +51,33 @@ var reports []Report = []Report{}
 func main() {
 	app := fiber.New()
 
-	if os.Getenv("ENV") != "prod" {
-		err := godotenv.Load(".env")
-		if err != nil {
-			log.Fatal("Error loading .env file")
-		}
-	}
+	initDevelopmentSetup(app)
 	log.Print("ENV=" + os.Getenv("ENV"))
 
 	PORT := os.Getenv("PORT")
 
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: "http://localhost:3000",
-		AllowHeaders: "Origin,Content-type,Accept",
-	}))
+	app.Static("/", "./client/build")
 
 	app.Post("/api/safetyheatmap/heatmap/get", safetyHeatmapGetHeatmap)
 	app.Post("/api/safetyheatmap/report/add", safetyHeatmapAddReport)
 
-	if os.Getenv("ENV") == "prod" {
-		app.Static("/", "./client/build")
-	}
-
 	log.Fatal(app.Listen(":" + PORT))
+}
+
+func initDevelopmentSetup(app *fiber.App) {
+	if os.Getenv("ENV") != "prod" {
+		// Load ENV file in development
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+
+		// Allow localhost in development
+		app.Use(cors.New(cors.Config{
+			AllowOrigins: "http://localhost:3000",
+			AllowHeaders: "Origin,Content-type,Accept,Authorization,User-Agent",
+		}))
+	}
 }
 
 func safetyHeatmapAddReport(c *fiber.Ctx) error {

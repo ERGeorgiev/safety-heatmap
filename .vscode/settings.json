@@ -4,11 +4,8 @@
     "local": {
       "host": "http://localhost:8080"
     },
-    "dev": {
-      "host": "http://dev.host"
+    "prod": {
+      "host": "https://oopkvcjf5j.execute-api.eu-west-1.amazonaws.com"
     },
-    "staging": {
-      "host": "http://staging.host"
-    }
   }
 }

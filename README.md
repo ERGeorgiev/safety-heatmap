@@ -41,6 +41,16 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
    2. Install extension `Even Better TOML`
    3. Install extension `REST Client`
 
+5. Install AWS Modules
+
+   ```sh
+   Install-Module -Name AWS.Tools.Common
+   ```
+
+   ```sh
+   Install-Module -Name AWS.Tools.ECR
+   ```
+
 ### Run
 
 1. To start the backend, navigate to `./src` and run:
@@ -53,6 +63,41 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
 
    ```sh
    npm start
+   ```
+
+### Deploy to AWS
+
+#### Automatic
+
+1. Push to the main branch.
+
+#### Manual
+
+1. Login
+
+   ```sh
+   (Get-ECRLoginCommand).Password | docker login --username AWS --password-stdin 762233751295.dkr.ecr.eu-west-1.amazonaws.com
+   ```
+
+2. Build Docker Image
+
+   ```sh
+   docker build . --progress plain -t safetyheatmap
+   ```
+
+3. Run Docker image and ensure it works
+
+   ```sh
+   docker run -d --publish 8080:8080 safetyheatmap 
+   ```
+
+4. Upload to ECR Repo, where the service will pick it up
+
+   ```sh
+   aws configure
+   docker tag safetyheatmap:latest 762233751295.dkr.ecr.eu-west-1.amazonaws.com/safety-heatmap:latest
+   docker push 762233751295.dkr.ecr.eu-west-1.amazonaws.com/safety-heatmap:latest
+   aws ecs update-service --cluster safetyheatmap --service safetyheatmap --force-new-deployment
    ```
 
 ### Issues

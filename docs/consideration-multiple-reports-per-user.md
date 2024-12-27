@@ -38,6 +38,7 @@ We also need to keep in mind that users on the same router will share the same I
 
 Implementing most of these limitations may not need a database and can be stored instead in-memory on the server, given an IP and sticky user sessions (AWS feature). With most "user sessions" lasting a day, even with a million users, that's only about 8MB of memory required (2 integers * 4 bytes * 1M).
 What about when the servers scale and the user may be switched to a different server? To prevent that from happening, we can use sticky server sessions that "stick" users to the same servers - https://serverfault.com/questions/941563. That may be sufficient to start with. If this doesn't work, we may have to store the IPs in the database under ShIp#192.000/000 with a TTL of a day.
+Update: Seems like LoadBalancers (ALB) do that by default, where they try to keep users on the same backend server. But ALB is expensive, might have to do without for the MVP, or just use an in-memory store and accept the risk of multi-server issues. Another way is to use a DynamoDB and a session key per user.
 
 ## Daily Report Limit
 
