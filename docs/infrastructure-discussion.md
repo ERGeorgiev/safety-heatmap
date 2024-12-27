@@ -65,12 +65,12 @@ I think it will be okay, but if the Gateway starts throwing 500 at any point, th
 
 1. Networking: AWS VPC
 
-    VPC Name: safetyheatmap (vpc-0909b0cd3078f6aba)
+    VPC Name: safetyheatmap
     Subnets:
         Public Subnets (x3): Accessible for external traffic.
         Private Subnets (x3): Used for internal ECS tasks and backend services.
     NAT Gateway: Not implemented due to cost constraints.
-    Security Group: safetyheatmap-ecs (sg-01257eb91f1cb067f)
+    Security Group: safetyheatmap-ecs
         Configured for controlled traffic flow between ECS, API Gateway, and DynamoDB.
 
 2. Application Layers
@@ -87,14 +87,12 @@ I think it will be okay, but if the Gateway starts throwing 500 at any point, th
     Service: safetyheatmap
     Task Definition: safetyheatmap
     Container Registry: AWS ECR (safety-heatmap)
-        URI: 762233751295.dkr.ecr.eu-west-1.amazonaws.com/safety-heatmap
 	Part of: Security Group "safetyheatmap-ecs"
 	Part of: VPC Public Subnets "safetyheatmap"
 
 4. API Gateway
 
     Type: HTTP API Gateway (Cost-optimized over ALB)
-    URL: https://oopkvcjf5j.execute-api.eu-west-1.amazonaws.com/
 	Uses VPC Link to interface with the ECS Fargate Service "safetyheatmap"
 
 5. Data Storage
