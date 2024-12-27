@@ -4,10 +4,7 @@
   viewBox="0 0 200 200"
   xmlns="http://www.w3.org/2000/svg"
 >
-  <!-- 
-    Linear gradient background (red to blue). 
-    We'll apply it to the rounded square path.
-  -->
+  <!-- Gradient background -->
   <defs>
     <linearGradient
       id="myGradient"
@@ -21,11 +18,7 @@
     </linearGradient>
   </defs>
 
-  <!-- 
-    Rounded square background 
-    - 200×200 box
-    - corner radius = 30
-  -->
+  <!-- Rounded square background -->
   <path
     d="
       M 30 0
@@ -42,35 +35,19 @@
     fill="url(#myGradient)"
   />
 
-  <!-- 
-    MASSIVE location pin + exclamation mark,
-    centered at (100, 100), radius ~80
-  -->
+  <!-- Simplified Map Pin -->
   <g transform="translate(100, 100)">
-    <!-- Pin shape (radius = 80) -->
+    <!-- Pin Shape -->
     <path
       d="
-        M 0 -80
-        A 80 80 0 0 1 80 0
-        C 80 35 0 90 0 90
-        C 0 90 -80 35 -80 0
-        A 80 80 0 0 1 0 -80
+        M 0 -60
+        A 60 60 0 0 1 60 0
+        C 60 30 0 75 0 75
+        C 0 75 -60 30 -60 0
+        A 60 60 0 0 1 0 -60
         Z
       "
       fill="#fff"
     />
-    <!-- Exclamation mark, now ~2x bigger (font-size=112) -->
-    <text
-      x="0"
-      y="18"
-      text-anchor="middle"
-      dominant-baseline="middle"
-      fill="#d32f2f"
-      font-size="112"
-      font-family="Arial, sans-serif"
-      font-weight="bold"
-    >
-      !
-    </text>
   </g>
 </svg>
