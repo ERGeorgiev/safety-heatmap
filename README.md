@@ -10,6 +10,7 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
 
 ## Built with
 
+- AWS
 - Go
 - React
 - Leaflet
