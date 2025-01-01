@@ -1,0 +1,53 @@
+<svg
+  width="200"
+  height="200"
+  viewBox="0 0 200 200"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Gradient background -->
+  <defs>
+    <linearGradient
+      id="myGradient"
+      x1="0%"
+      y1="0%"
+      x2="100%"
+      y2="100%"
+    >
+      <stop offset="0%" stop-color="red" />
+      <stop offset="100%" stop-color="blue" />
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <path
+    d="
+      M 30 0
+      H 170
+      A 30 30 0 0 1 200 30
+      V 170
+      A 30 30 0 0 1 170 200
+      H 30
+      A 30 30 0 0 1 0 170
+      V 30
+      A 30 30 0 0 1 30 0
+      Z
+    "
+    fill="url(#myGradient)"
+  />
+
+  <!-- Simplified Map Pin -->
+  <g transform="translate(100, 100)">
+    <!-- Pin Shape -->
+    <path
+      d="
+        M 0 -60
+        A 60 60 0 0 1 60 0
+        C 60 30 0 75 0 75
+        C 0 75 -60 30 -60 0
+        A 60 60 0 0 1 0 -60
+        Z
+      "
+      fill="#fff"
+    />
+  </g>
+</svg>

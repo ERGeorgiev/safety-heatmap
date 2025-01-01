@@ -1,5 +1,5 @@
 {
-  "name": "react-leaflet-examples",
+  "name": "safetyheatmap",
   "version": "0.1.5",
   "private": true,
   "dependencies": {
@@ -21,6 +21,7 @@
     "react-scripts": "^5.0.1",
     "react-tabs": "^3.2.3",
     "sass": "^1.35.1",
+    "ajv": "8.17.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -42,7 +43,6 @@
     "not dead",
     "not op_mini all"
   ],
-  "homepage": "https://tomik23.github.io/react-leaflet-examples",
   "devDependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.25.9"
   }

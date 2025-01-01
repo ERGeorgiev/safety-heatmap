@@ -4,8 +4,13 @@
 
 This project aims to create a live heatmap of all the highly dangerous areas of cities. The project will use crime records as a base for the heatmap and subsequently use user reports to add to the data.
 
+## Infrastructure
+
+![Infrastructure](./docs/img/aws-infrastructure.png)
+
 ## Built with
 
+- AWS
 - Go
 - React
 - Leaflet
@@ -55,3 +60,6 @@ This project aims to create a live heatmap of all the highly dangerous areas of 
    npm start
    ```
 
+### Deploy
+
+1. Push to the main branch.
