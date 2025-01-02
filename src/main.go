@@ -10,6 +10,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/joho/godotenv"
 )
 
@@ -53,11 +54,15 @@ func main() {
 
 	initDevelopmentSetup(app)
 	log.Print("ENV=" + os.Getenv("ENV"))
-
 	PORT := os.Getenv("PORT")
 
-	app.Static("/", "./client/build")
+	// Apply rate limiter middleware
+	app.Use(limiter.New(limiter.Config{
+		Max:        60, // Max requests per IP
+		Expiration: 1 * time.Minute,
+	}))
 
+	app.Static("/", "./client/build")
 	app.Post("/api/safetyheatmap/heatmap/get", safetyHeatmapGetHeatmap)
 	app.Post("/api/safetyheatmap/report/add", safetyHeatmapAddReport)
 
