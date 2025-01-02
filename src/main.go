@@ -50,7 +50,11 @@ type Report struct {
 var reports []Report = []Report{}
 
 func main() {
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		// To prevent resource exhaustion attacks
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 5 * time.Second,
+	})
 
 	initDevelopmentSetup(app)
 	log.Print("ENV=" + os.Getenv("ENV"))
