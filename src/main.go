@@ -64,7 +64,6 @@ func main() {
 	// Setup security headers
 	// If parsing string input, consider sanitization with "bluemonday" go library.
 	// Currently, we have a single string restricted to 1 char, which is not a concern.
-	// Also, consider extra logging with "logrus".
 	app.Use(helmet.New())
 	app.Use(func(c *fiber.Ctx) error {
 		c.Set("X-Frame-Options", "DENY")                                                   // Prevent site to be rendered in iFrame
