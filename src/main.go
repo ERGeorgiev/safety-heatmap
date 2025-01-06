@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"time"
+	"sync"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -47,6 +48,7 @@ type Report struct {
 }
 
 var reports []Report = []Report{}
+var logCount int
 
 func main() {
 	app := fiber.New()
@@ -61,7 +63,35 @@ func main() {
 	app.Post("/api/safetyheatmap/heatmap/get", safetyHeatmapGetHeatmap)
 	app.Post("/api/safetyheatmap/report/add", safetyHeatmapAddReport)
 
+	app.Use(loggingMiddleware)
+
 	log.Fatal(app.Listen(":" + PORT))
+}
+
+func loggingMiddleware(c *fiber.Ctx) error {
+	// Log Request Path
+	path := c.Path()
+	limitedLog("Request Path: " + path)
+
+	// Log Request Body
+	body := c.Body()
+	limitedLog("Request Body: " + string(body))
+
+	// Proceed with request
+	err := c.Next()
+
+	// Log Response Body
+	response := c.Response().Body()
+	limitedLog("Response Body: " + string(response))
+
+	return err
+}
+
+func limitedLog(message string) {
+	if logCount < 100 {
+		log.Println(message)
+		logCount++
+	}
 }
 
 func initDevelopmentSetup(app *fiber.App) {
