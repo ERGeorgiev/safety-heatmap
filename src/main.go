@@ -68,20 +68,22 @@ func main() {
 }
 
 func loggingMiddleware(c *fiber.Ctx) error {
-	// Log Request Path
+	// Several weird IPs calling our service, gathering more info here.
+	
+	// Collect initial request data
 	path := c.Path()
-	limitedLog("Request Path: " + path)
-
-	// Log Request Body
 	body := c.Body()
-	limitedLog("Request Body: " + string(body))
-
+	ip := c.IP()
+	
 	// Proceed with request
 	err := c.Next()
 
-	// Log Response Body
+	// Collect final response data
 	response := c.Response().Body()
-	limitedLog("Response Body: " + string(response))
+
+	// Log everything in a single log entry
+	logMessage := "IP: " + ip + " | Path: " + path + " | Request Body: " + string(body) + " | Response Body: " + string(response)
+	limitedLog(logMessage)
 
 	return err
 }
