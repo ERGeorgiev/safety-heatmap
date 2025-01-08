@@ -70,7 +70,7 @@ func main() {
 		c.Set("Cross-Origin-Resource-Policy", "cross-origin")
 		c.Set("Content-Security-Policy", `
 			default-src 'self';
-			img-src 'self' https://*.tile.openstreetmap.org;
+			img-src 'self' https://*.tile.openstreetmap.org data:;
 			style-src 'self' https://unpkg.com https://*.unpkg.com https://*.googleapis.com https://*.cloudflare.com;
 			style-src-elem 'self' https://unpkg.com https://*.unpkg.com https://*.googleapis.com https://*.cloudflare.com;
 			font-src 'self' https://fonts.gstatic.com;
