@@ -67,8 +67,14 @@ func main() {
 	// Currently, we have a single string restricted to 1 char, which is not a concern.
 	app.Use(helmet.New())
 	app.Use(func(c *fiber.Ctx) error {
-		c.Set("Content-Security-Policy", "default-src 'self'; img-src 'self' https://*.tile.openstreetmap.org; style-src 'self' https://unpkg.com; https://fonts.googleapis.com; https://cdnjs.cloudflare.com;")
 		c.Set("Cross-Origin-Resource-Policy", "cross-origin")
+		c.Set("Content-Security-Policy", `
+			default-src 'self';
+			img-src 'self' https://*.tile.openstreetmap.org;
+			style-src 'self' https://unpkg.com https://*.unpkg.com https://*.googleapis.com https://*.cloudflare.com;
+			style-src-elem 'self' https://unpkg.com https://*.unpkg.com https://*.googleapis.com https://*.cloudflare.com;
+			font-src 'self' https://fonts.gstatic.com;
+		`)
 		return c.Next()
 	})
 	// Apply rate limiter middleware
