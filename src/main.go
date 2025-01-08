@@ -10,12 +10,14 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/helmet"
+	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/joho/godotenv"
 )
 
 type Point struct {
-	Lat float32 `json:"lat" validate:"required,numeric"`
-	Lng float32 `json:"lng" validate:"required,numeric"`
+	Lat float32 `json:"lat" validate:"required,numeric,min=-90,max=90"`
+	Lng float32 `json:"lng" validate:"required,numeric,min=-180,max=180"`
 }
 
 type GetHeatmapRequest struct {
@@ -50,15 +52,33 @@ var reports []Report = []Report{}
 var logCount int
 
 func main() {
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		// To prevent resource exhaustion attacks
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 5 * time.Second,
+	})
 
 	initDevelopmentSetup(app)
 	log.Print("ENV=" + os.Getenv("ENV"))
-
 	PORT := os.Getenv("PORT")
 
-	app.Static("/", "./client/build")
+	// Setup security headers
+	// If parsing string input, consider sanitization with "bluemonday" go library.
+	// Currently, we have a single string restricted to 1 char, which is not a concern.
+	app.Use(helmet.New())
+	app.Use(func(c *fiber.Ctx) error {
+		c.Set("X-Frame-Options", "DENY")                                                   // Prevent site to be rendered in iFrame
+		c.Set("Content-Security-Policy", "default-src 'self'")                             // All resources must be loaded from this website
+		c.Set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload") // Only HTTPS
+		return c.Next()
+	})
+	// Apply rate limiter middleware
+	app.Use(limiter.New(limiter.Config{
+		Max:        60, // Max requests per IP
+		Expiration: 1 * time.Minute,
+	}))
 
+	app.Static("/", "./client/build")
 	app.Post("/api/safetyheatmap/heatmap/get", safetyHeatmapGetHeatmap)
 	app.Post("/api/safetyheatmap/report/add", safetyHeatmapAddReport)
 
