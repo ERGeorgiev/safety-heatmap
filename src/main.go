@@ -67,8 +67,12 @@ func main() {
 	// Currently, we have a single string restricted to 1 char, which is not a concern.
 	app.Use(helmet.New())
 	app.Use(func(c *fiber.Ctx) error {
+		c.Set("Cross-Origin-Embedder-Policy", "require-corp")
+		c.Set("Cross-Origin-Resource-Policy", "cross-origin")
+		c.Set("Cross-Origin-Opener-Policy", "same-origin")
 		c.Set("X-Frame-Options", "DENY")                                                   // Prevent site to be rendered in iFrame
 		c.Set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload") // Only HTTPS
+		c.Set("Content-Security-Policy", "default-src 'self'; img-src 'self' https://b.tile.openstreetmap.org;")
 		return c.Next()
 	})
 	// Apply rate limiter middleware
