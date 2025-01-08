@@ -68,7 +68,6 @@ func main() {
 	app.Use(helmet.New())
 	app.Use(func(c *fiber.Ctx) error {
 		c.Set("X-Frame-Options", "DENY")                                                   // Prevent site to be rendered in iFrame
-		c.Set("Content-Security-Policy", "default-src 'self'")                             // All resources must be loaded from this website
 		c.Set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload") // Only HTTPS
 		return c.Next()
 	})
