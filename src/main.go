@@ -83,18 +83,30 @@ func main() {
 	app.Post("/api/safetyheatmap/report/add", safetyHeatmapAddReport)
 
 	app.Use(loggingMiddleware)
+	app.Use(errorHandlingMiddleware)
 
 	log.Fatal(app.Listen(":" + PORT))
 }
 
+func errorHandlingMiddleware(c *fiber.Ctx) error {
+	err := c.Next()
+	if err != nil {
+		log.Printf("Error on route %s: %v", c.Path(), err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Something went wrong.",
+		})
+	}
+	return nil
+}
+
 func loggingMiddleware(c *fiber.Ctx) error {
 	// Several weird IPs calling our service, gathering more info here.
-	
+
 	// Collect initial request data
 	path := c.Path()
 	body := c.Body()
 	ip := c.IP()
-	
+
 	// Proceed with request
 	err := c.Next()
 
