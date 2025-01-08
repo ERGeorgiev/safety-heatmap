@@ -67,7 +67,7 @@ func main() {
 	// Currently, we have a single string restricted to 1 char, which is not a concern.
 	app.Use(helmet.New())
 	app.Use(func(c *fiber.Ctx) error {
-		c.Set("Content-Security-Policy", "default-src 'self'; img-src 'self' https://*.tile.openstreetmap.org; style-src 'self' https://unpkg.com; style-src 'self' https://fonts.googleapis.com; style-src 'self' https://cdnjs.cloudflare.com;")
+		c.Set("Content-Security-Policy", "default-src 'self'; img-src 'self' https://*.tile.openstreetmap.org; https://unpkg.com; https://fonts.googleapis.com; https://cdnjs.cloudflare.com;")
 		c.Set("Cross-Origin-Resource-Policy", "cross-origin")
 		return c.Next()
 	})
