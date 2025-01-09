@@ -12,7 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
-	"github.com/joho/godotenv"
+	"github.com/joho/godotenv" 
 )
 
 type Point struct {
