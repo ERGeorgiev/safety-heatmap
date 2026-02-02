@@ -65,11 +65,15 @@ func main() {
 	// Setup security headers
 	// If parsing string input, consider sanitization with "bluemonday" go library.
 	// Currently, we have a single string restricted to 1 char, which is not a concern.
-	app.Use(helmet.New())
+	app.Use(helmet.New(helmet.Config{
+		CrossOriginEmbedderPolicy: "unsafe-none", // Or "require-corp" if properly configured
+		CrossOriginOpenerPolicy:   "same-origin",
+		CrossOriginResourcePolicy: "cross-origin",
+	}))
 	app.Use(func(c *fiber.Ctx) error {
-		c.Set("X-Frame-Options", "DENY")                                                   // Prevent site to be rendered in iFrame
-		c.Set("Content-Security-Policy", "default-src 'self'")                             // All resources must be loaded from this website
-		c.Set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload") // Only HTTPS
+		c.Set("Content-Security-Policy", "default-src 'self'; img-src 'self' https://b.tile.openstreetmap.org;")
+		c.Set("Cross-Origin-Embedder-Policy", "unsafe-none")
+		c.Set("Cross-Origin-Resource-Policy", "cross-origin")
 		return c.Next()
 	})
 	// Apply rate limiter middleware
